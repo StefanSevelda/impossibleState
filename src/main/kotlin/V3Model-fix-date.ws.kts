@@ -42,9 +42,9 @@ data class Customer(
 )
 
 //// Wednesday, March 21, 2040 9:41:37 AM
-//val birthdate = LocalDate.of(2040, 3, 26)
+val birthdate = LocalDate.of(2040, 3, 26)
 //// Thursday, March 21, 1991 9:41:37 AM - 669548497000
-val birthdate = LocalDate.of(1991, 3, 26)
+//val birthdate = LocalDate.of(1991, 3, 26)
 
 suspend fun validate(): Either<Error, Customer> = either {
     val birthDated = FullLegalAge.validate(birthdate).bind()
