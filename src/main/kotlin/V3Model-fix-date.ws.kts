@@ -14,7 +14,6 @@ import java.time.temporal.ChronoUnit
  */
 
 enum class ErrorType {
-
     InvalidBirthDate
 }
 
@@ -24,7 +23,8 @@ data class FullLegalAge(val birthDate: LocalDate) {
     companion object {
 
         fun validate(birthDate: LocalDate): Either<Error, FullLegalAge> {
-            val fullLegalAgeThreshold: LocalDate = LocalDate.now().minus(18, ChronoUnit.YEARS)
+            val fullLegalAgeThreshold: LocalDate = LocalDate.now()
+                .minus(18, ChronoUnit.YEARS)
             return if (birthDate.isBefore(fullLegalAgeThreshold)) {
                 FullLegalAge(birthDate).right()
             } else
@@ -42,9 +42,10 @@ data class Customer(
 )
 
 //// Wednesday, March 21, 2040 9:41:37 AM
-val birthdate = LocalDate.of(2040, 3, 26)
-//// Thursday, March 21, 1991 9:41:37 AM - 669548497000
-//val birthdate = LocalDate.of(1991, 3, 26)
+//val birthdate = LocalDate.of(2040, 3, 26)
+//val birthdate = LocalDate.of(2010, 3, 26)
+// Thursday, March 21, 1991 9:41:37 AM - 669548497000
+val birthdate = LocalDate.of(1991, 3, 26)
 
 suspend fun validate(): Either<Error, Customer> = either {
     val birthDated = FullLegalAge.validate(birthdate).bind()

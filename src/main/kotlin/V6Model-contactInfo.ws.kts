@@ -81,7 +81,7 @@ data class Customer(
     val firstName: String,
     val lastName: String,
     val birthDate: FullLegalAge,
-    val contactInfo: ContactInfo?,
+    val contactInfo: ContactInfo,
 )
 
 //// Thursday, March 21, 1991 9:41:37 AM - 669548497000

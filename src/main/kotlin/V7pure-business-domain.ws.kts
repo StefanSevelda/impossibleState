@@ -6,7 +6,7 @@ import domain.EmailLink
 import domain.EventInformation
 import domain.RiskModel
 import domain.RiskScore
-import domain.createExpiryTime
+import domain.getExpiryTime
 import domain.getRiskModel
 import domain.publishEvent
 import domain.validate
@@ -32,6 +32,9 @@ fun createEmailLink(customer: Customer, expireTime: LocalDate): EmailLink {
 
 runBlocking {
     either<Error, EventInformation> {
+        /**
+         * Input
+         */
         val request: CreateCustomerRequest = CreateCustomerRequest(
             firstName = "Max",
             lastName = "Mustermann",
@@ -45,14 +48,14 @@ runBlocking {
          *  - validate user input and convert in to valid Domain model (no impossible state)
          */
         val customer = validate(request).bind()
-        val linkExpiryTime = createExpiryTime()
+        val linkExpiryTime = getExpiryTime()
         val riskModel = getRiskModel().bind()
 
         /**
          * pure domain logic without side effects
           */
-        val riskScore = calculateRiskProfile(customer, riskModel)
         val emailLink = createEmailLink(customer, linkExpiryTime)
+        val riskScore = calculateRiskProfile(customer, riskModel)
 
         /**
          * Side effects:

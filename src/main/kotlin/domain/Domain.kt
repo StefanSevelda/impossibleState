@@ -116,7 +116,7 @@ suspend fun validate(createCustomerRequest: CreateCustomerRequest): Either<Error
 
 
 
-fun createExpiryTime(): LocalDate = LocalDate.now().plus(5, ChronoUnit.MINUTES)
+fun getExpiryTime(): LocalDate = LocalDate.now().plusDays(1)
 
 
 data class EventInformation(
